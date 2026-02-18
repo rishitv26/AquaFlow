@@ -1,0 +1,28 @@
+{
+  "name": "HydrationLog",
+  "type": "object",
+  "properties": {
+    "amount_ml": {
+      "type": "number",
+      "description": "Amount of water consumed in milliliters"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the water was consumed"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "bottle_sync",
+        "manual"
+      ],
+      "default": "manual",
+      "description": "How the log was recorded"
+    }
+  },
+  "required": [
+    "amount_ml",
+    "timestamp"
+  ]
+}

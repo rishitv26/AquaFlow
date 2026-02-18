@@ -1,0 +1,30 @@
+{
+  "name": "UserSettings",
+  "type": "object",
+  "properties": {
+    "daily_goal_ml": {
+      "type": "number",
+      "default": 2500,
+      "description": "Daily water intake goal in milliliters"
+    },
+    "bottle_capacity_ml": {
+      "type": "number",
+      "default": 750,
+      "description": "Water bottle capacity in milliliters"
+    },
+    "reminder_interval_minutes": {
+      "type": "number",
+      "default": 60,
+      "description": "Reminder interval in minutes"
+    },
+    "reminders_enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "weight_kg": {
+      "type": "number",
+      "description": "User weight for personalized recommendations"
+    }
+  },
+  "required": []
+}
