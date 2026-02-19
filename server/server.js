@@ -218,7 +218,8 @@ app.post('/api/user-settings', async (req, res) => {
       bottle_capacity_ml = 750,
       reminder_interval_minutes = 60,
       reminders_enabled = true,
-      weight_kg = 70
+      weight_kg = 70,
+      user_mode = 'default'
     } = req.body;
 
     const user = await getAsync(
@@ -234,9 +235,9 @@ app.post('/api/user-settings', async (req, res) => {
     const now = new Date().toISOString();
 
     await runAsync(
-      `INSERT INTO user_settings (id, user_id, daily_goal_ml, bottle_capacity_ml, reminder_interval_minutes, reminders_enabled, weight_kg, created_date, updated_date)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id, user.id, daily_goal_ml, bottle_capacity_ml, reminder_interval_minutes, reminders_enabled, weight_kg, now, now]
+      `INSERT INTO user_settings (id, user_id, daily_goal_ml, bottle_capacity_ml, reminder_interval_minutes, reminders_enabled, weight_kg, user_mode, created_date, updated_date)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [id, user.id, daily_goal_ml, bottle_capacity_ml, reminder_interval_minutes, reminders_enabled, weight_kg, user_mode, now, now]
     );
 
     const newSettings = await getAsync(
@@ -260,7 +261,8 @@ app.put('/api/user-settings/:id', async (req, res) => {
       bottle_capacity_ml,
       reminder_interval_minutes,
       reminders_enabled,
-      weight_kg
+      weight_kg,
+      user_mode
     } = req.body;
 
     const updates = [];
@@ -289,6 +291,11 @@ app.put('/api/user-settings/:id', async (req, res) => {
     if (weight_kg !== undefined) {
       updates.push('weight_kg = ?');
       params.push(weight_kg);
+    }
+
+    if (user_mode !== undefined) {
+      updates.push('user_mode = ?');
+      params.push(user_mode);
     }
 
     updates.push('updated_date = ?');

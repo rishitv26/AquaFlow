@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import client from '@/api/client';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { 
   Trophy, 
   Droplets, 
@@ -13,24 +13,29 @@ import {
 } from 'lucide-react';
 
 export default function Leaderboard() {
+  const queryClient = useQueryClient();
   // Fetch all users
-  const { data: users = [], isLoading: usersLoading } = useQuery({
+  const { data: users = [], isLoading: usersLoading, error: usersError } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
       const response = await client.get('/users');
       return response.data;
-    }
+    },
+    retry: 2,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
   // Fetch all hydration logs
-  const { data: logs = [], isLoading: logsLoading } = useQuery({
+  const { data: logs = [], isLoading: logsLoading, error: logsError } = useQuery({
     queryKey: ['allHydrationLogs'],
     queryFn: async () => {
       const response = await client.get('/hydration-logs', {
         params: { limit: 1000, sort: '-timestamp' }
       });
       return response.data;
-    }
+    },
+    retry: 2,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
   // Calculate leaderboard stats
@@ -105,6 +110,29 @@ export default function Leaderboard() {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+      </div>
+    );
+  }
+
+  if (usersError || logsError) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center px-5">
+        <div className="text-center max-w-sm">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold text-white mb-2">Error Loading Leaderboard</h2>
+          <p className="text-slate-400 mb-4">
+            {usersError?.message || logsError?.message || 'Failed to fetch leaderboard data'}
+          </p>
+          <button
+            onClick={() => {
+              if (usersError) queryClient.invalidateQueries({ queryKey: ['users'] });
+              if (logsError) queryClient.invalidateQueries({ queryKey: ['allHydrationLogs'] });
+            }}
+            className="px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }

@@ -13,6 +13,7 @@ export function createPageUrl(pageName) {
   
   // Special cases
   if (route === 'home') return '/';
+  if (route === 'electrolyteguide') return '/electrolyte-guide';
   
   return `/${route}`;
 }

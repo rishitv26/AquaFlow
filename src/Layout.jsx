@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { motion } from 'framer-motion';
-import { Home, Trophy, Settings } from 'lucide-react';
+import { Home, Trophy, Settings, Zap } from 'lucide-react';
 
 export default function Layout({ children }) {
   const location = useLocation();
@@ -10,6 +10,7 @@ export default function Layout({ children }) {
   const navItems = [
     { name: 'Home', icon: Home, path: createPageUrl('Home') },
     { name: 'Leaderboard', icon: Trophy, path: createPageUrl('Leaderboard') },
+    { name: 'Guide', icon: Zap, path: createPageUrl('ElectrolyteGuide') },
     { name: 'Settings', icon: Settings, path: createPageUrl('Settings') },
   ];
 

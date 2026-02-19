@@ -16,12 +16,29 @@ import HydrationRing from '@/components/hydration/HydrationRing';
 import BiometricCard from '@/components/hydration/BiometricCard';
 import BluetoothStatus from '@/components/hydration/BluetoothStatus';
 import IntakeChart from '@/components/hydration/IntakeChart';
+import { useRemindersSetup } from '@/hooks/useRemindersSetup';
 
 
 export default function Home() {
   const [isBottleConnected, setIsBottleConnected] = useState(false);
   const [bottleBattery, setBottleBattery] = useState(85);
+  const [notification, setNotification] = useState(null);
   const queryClient = useQueryClient();
+
+  // Initialize reminders system
+  useRemindersSetup();
+
+  // Listen for in-app reminder notifications
+  useEffect(() => {
+    const handleReminder = (event) => {
+      setNotification(event.detail);
+      // Auto-dismiss after 4 seconds
+      setTimeout(() => setNotification(null), 4000);
+    };
+
+    window.addEventListener('aquapulse-reminder', handleReminder);
+    return () => window.removeEventListener('aquapulse-reminder', handleReminder);
+  }, []);
 
   // Fetch today's logs
   const { data: todayLogs = [] } = useQuery({
@@ -87,6 +104,22 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white pb-32">
+      {/* In-app Notification Toast */}
+      {notification && (
+        <motion.div
+          initial={{ opacity: 0, y: -20, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 max-w-md mx-auto"
+        >
+          <span className="text-2xl">💧</span>
+          <div>
+            <p className="font-semibold">{notification.title}</p>
+            <p className="text-sm text-white/80">{notification.message}</p>
+          </div>
+        </motion.div>
+      )}
+
       {/* Ambient background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
@@ -113,6 +146,33 @@ export default function Home() {
           >
             <Sparkles className="w-5 h-5 text-cyan-400" />
           </motion.div>
+        </motion.div>
+
+        {/* Reminders Status */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-8 p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 border border-emerald-500/30"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-emerald-400 font-medium">Reminders Active</span>
+            </div>
+            <button
+              onClick={async () => {
+                const { showReminderNotification } = await import('@/services/reminders');
+                showReminderNotification();
+              }}
+              className="px-3 py-1 text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 rounded-lg transition"
+            >
+              Test
+            </button>
+          </div>
+          <p className="text-xs text-emerald-400/70 mt-2">
+            You'll receive a notification every {(settings?.reminder_interval_minutes || 60)} minutes
+          </p>
         </motion.div>
 
         {/* Main hydration display */}

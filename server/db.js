@@ -50,6 +50,7 @@ function initializeDatabase() {
         reminder_interval_minutes INTEGER DEFAULT 60,
         reminders_enabled BOOLEAN DEFAULT 1,
         weight_kg REAL,
+        user_mode TEXT DEFAULT 'default',
         created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_date DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id)
@@ -57,6 +58,12 @@ function initializeDatabase() {
     `, (err) => {
       if (!err) {
         console.log('Database tables initialized');
+        // Add user_mode column if it doesn't exist (for existing databases)
+        db.run(`ALTER TABLE user_settings ADD COLUMN user_mode TEXT DEFAULT 'default'`, (alterErr) => {
+          if (alterErr && !alterErr.message.includes('Duplicate column')) {
+            console.log('Existing user_mode column already present or added');
+          }
+        });
         seedDatabase();
       }
     });

@@ -18,17 +18,20 @@ import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export default function Settings() {
   const queryClient = useQueryClient();
   const [saved, setSaved] = useState(false);
   
-  const { data: settings, isLoading } = useQuery({
+  const { data: settings, isLoading, error } = useQuery({
     queryKey: ['userSettings'],
     queryFn: async () => {
       const response = await client.get('/user-settings');
       return response.data[0] || null;
-    }
+    },
+    retry: 2,
+    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
   const [formData, setFormData] = useState({
@@ -36,7 +39,8 @@ export default function Settings() {
     bottle_capacity_ml: 750,
     reminder_interval_minutes: 60,
     reminders_enabled: true,
-    weight_kg: 70
+    weight_kg: 70,
+    user_mode: 'default'
   });
 
   useEffect(() => {
@@ -46,7 +50,8 @@ export default function Settings() {
         bottle_capacity_ml: settings.bottle_capacity_ml || 750,
         reminder_interval_minutes: settings.reminder_interval_minutes || 60,
         reminders_enabled: settings.reminders_enabled ?? true,
-        weight_kg: settings.weight_kg || 70
+        weight_kg: settings.weight_kg || 70,
+        user_mode: settings.user_mode || 'default'
       });
     }
   }, [settings]);
@@ -77,6 +82,24 @@ export default function Settings() {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center px-5">
+        <div className="text-center max-w-sm">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-xl font-bold text-white mb-2">Error Loading Settings</h2>
+          <p className="text-slate-400 mb-4">{error?.message || 'Failed to fetch settings'}</p>
+          <button
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['userSettings'] })}
+            className="px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg transition"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }
@@ -210,6 +233,59 @@ export default function Settings() {
           </div>
         </motion.div>
 
+        {/* User Mode */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35 }}
+          className="rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-xl border border-white/10 p-6 mb-6"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2.5 rounded-xl bg-purple-500/20">
+              <Target className="w-5 h-5 text-purple-400" />
+            </div>
+            <div>
+              <h3 className="text-white font-semibold">User Mode</h3>
+              <p className="text-slate-400 text-sm">Choose your lifestyle profile</p>
+            </div>
+          </div>
+
+          <div>
+            <label className="text-slate-400 text-sm mb-3 block">Profile Type</label>
+            <Select
+              value={formData.user_mode}
+              onValueChange={(value) => setFormData({ ...formData, user_mode: value })}
+            >
+              <SelectTrigger className="bg-white/5 border-white/10 text-white h-12 rounded-xl">
+                <SelectValue placeholder="Select a mode" />
+              </SelectTrigger>
+              <SelectContent className="bg-slate-900 border-white/10">
+                <SelectItem value="default" className="text-white hover:bg-cyan-500/20 cursor-pointer">
+                  Default
+                </SelectItem>
+                <SelectItem value="athlete" className="text-white hover:bg-cyan-500/20 cursor-pointer">
+                  Athlete Mode
+                </SelectItem>
+                <SelectItem value="student" className="text-white hover:bg-cyan-500/20 cursor-pointer">
+                  Student Mode
+                </SelectItem>
+                <SelectItem value="professional" className="text-white hover:bg-cyan-500/20 cursor-pointer">
+                  Professional Mode
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <div className="mt-4 p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20">
+              <p className="text-purple-400 text-sm">
+                {formData.user_mode === 'athlete' && '🏃 Athlete Mode: Optimized for high-intensity training and recovery'}
+                {formData.user_mode === 'student' && '📚 Student Mode: Designed for busy study schedules'}
+                {formData.user_mode === 'professional' && '💼 Professional Mode: Tailored for desk-based work'}
+                {formData.user_mode === 'default' && '⚙️ Default Mode: General purpose hydration tracking'}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Reminders */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -265,7 +341,7 @@ export default function Settings() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.55 }}
         >
           <Button
             onClick={handleSave}
