@@ -21,7 +21,7 @@ export default function Home() {
   });
 
   return (
-    <Layout>
+    <>
       {/* …existing Home content… */}
 
       <BluetoothStatus
@@ -32,6 +32,6 @@ export default function Home() {
       />
 
       {/* …rest of Home… */}
-    </Layout>
+    </>
   );
 }
