@@ -1,5 +1,5 @@
 /**
- * Utility functions for AquaPulse
+ * Utility functions for AquaFlow
  */
 
 /**

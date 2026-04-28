@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# AquaPulse Local Backend Start Script
+# AquaFlow Local Backend Start Script
 # This starts the Express + SQLite backend server
 
 set -e
 
-echo "🚀 Starting AquaPulse Backend Server..."
+echo "🚀 Starting AquaFlow Backend Server..."
 echo ""
 
 cd "$(dirname "$0")/server" || exit

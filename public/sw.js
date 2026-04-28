@@ -1,10 +1,10 @@
 /**
- * Service Worker for AquaPulse
+ * Service Worker for AquaFlow
  * Enables offline support and caching
  */
 
-const CACHE_NAME = 'aquapulse-v1'
-const RUNTIME_CACHE = 'aquapulse-runtime'
+const CACHE_NAME = 'aquaflow-v1'
+const RUNTIME_CACHE = 'aquaflow-runtime'
 
 // Assets to cache on install
 const STATIC_ASSETS = [

@@ -1,6 +1,6 @@
 {
-  "name": "AquaPulse - Hydration Tracker",
-  "short_name": "AquaPulse",
+  "name": "AquaFlow - Hydration Tracker",
+  "short_name": "AquaFlow",
   "description": "Track your daily water intake and stay hydrated",
   "start_url": "/",
   "scope": "/",

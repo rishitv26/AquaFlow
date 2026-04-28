@@ -26,7 +26,7 @@ const API_BASE_URL = getAPIBaseURL();
 console.log('API Base URL:', API_BASE_URL);
 
 /**
- * Axios client for AquaPulse Local API
+ * Axios client for AquaFlow Local API
  * Replaces Base44 SDK with REST API calls
  */
 const client = axios.create({

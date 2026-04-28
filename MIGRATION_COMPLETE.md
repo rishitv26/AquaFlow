@@ -1,4 +1,4 @@
-# ✅ AquaPulse Migration Complete!
+# ✅ AquaFlow Migration Complete!
 
 Your app has been successfully migrated from Base44 to a **fully local, self-contained system** with Express backend and SQLite database.
 
@@ -17,7 +17,7 @@ Your app has been successfully migrated from Base44 to a **fully local, self-con
 - `server/server.js` - Express app with all API routes
 - `server/db.js` - SQLite initialization and schema
 - `server/package.json` - Backend dependencies
-- `server/aquapulse.db` - SQLite database file (auto-created)
+- `server/aquaflow.db` - SQLite database file (auto-created)
 
 ### **Frontend (Updated)**
 ✅ **Home.js** - All Base44 calls → axios API calls
@@ -45,7 +45,7 @@ npm start
 
 Expected output:
 ```
-✓ AquaPulse backend running on http://localhost:3001
+✓ AquaFlow backend running on http://localhost:3001
 ✓ API endpoints available at http://localhost:3001/api
 ✓ Connected to SQLite database
 ✓ Sample user created
@@ -141,7 +141,7 @@ PUT    /api/user-settings/:id  - Update settings
 ## ✨ Key Features
 
 ✅ **100% Local** - No internet required after startup
-✅ **All Data Local** - Everything stored in `server/aquapulse.db`
+✅ **All Data Local** - Everything stored in `server/aquaflow.db`
 ✅ **No Cloud Dependency** - Completely self-contained
 ✅ **Persistent** - Data survives app restarts
 ✅ **Fast** - SQLite is optimized for single-user use
@@ -164,7 +164,7 @@ PUT    /api/user-settings/:id  - Update settings
 ## 📝 Sample Data
 
 When the backend first starts, it automatically creates:
-- **1 test user**: `user@aquapulse.local`
+- **1 test user**: `user@aquaflow.local`
 - **6 hydration logs**: For today at 8h, 10h, 12h, 14h, 16h, 18h (250-350ml each)
 - **Total for today**: ~1780ml against your 2500ml goal
 - **Default settings**: 2500ml daily goal, 70kg weight, 60min reminders
@@ -175,11 +175,11 @@ You can modify/delete all this through the app UI.
 
 ## 🔑 Important Notes
 
-1. **Database Location**: `server/aquapulse.db` (SQLite file)
-2. **Default User**: All data belongs to `user@aquapulse.local` (no auth required for local dev)
+1. **Database Location**: `server/aquaflow.db` (SQLite file)
+2. **Default User**: All data belongs to `user@aquaflow.local` (no auth required for local dev)
 3. **Port Conflict**: If port 3001 is taken, edit `server/server.js` to use a different port
 4. **CORS Enabled**: Backend allows all origins (update for production)
-5. **Data Persistence**: Data in `aquapulse.db` persists between server restarts
+5. **Data Persistence**: Data in `aquaflow.db` persists between server restarts
 
 ---
 
@@ -201,7 +201,7 @@ Everything has been tested:
 2. **Start your React app**: `npm start` (in your frontend directory)
 3. **Test all pages**: Home, Leaderboard, Settings, Statistics
 4. **Add data**: Create new hydration logs through the app
-5. **Monitor database**: All data saved to `server/aquapulse.db`
+5. **Monitor database**: All data saved to `server/aquaflow.db`
 
 ---
 
@@ -236,13 +236,13 @@ Before committing/deploying:
 - [ ] All pages load data correctly
 - [ ] Settings save successfully
 - [ ] New hydration logs create properly
-- [ ] Database file (`aquapulse.db`) exists and has data
+- [ ] Database file (`aquaflow.db`) exists and has data
 
 ---
 
 ## 🎉 Success!
 
-Your AquaPulse app is now fully local and ready to use. All data stays on your machine, all changes are instant, and zero cloud dependency.
+Your AquaFlow app is now fully local and ready to use. All data stays on your machine, all changes are instant, and zero cloud dependency.
 
 **Happy hydrating! 💧**
 

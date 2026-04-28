@@ -1,7 +1,7 @@
 {
-  "name": "aquapulse-frontend",
+  "name": "aquaflow-frontend",
   "version": "1.0.0",
-  "description": "AquaPulse - Local Hydration Tracking App",
+  "description": "AquaFlow - Local Hydration Tracking App",
   "type": "module",
   "scripts": {
     "start": "vite",

@@ -1,7 +1,7 @@
 {
-  "name": "aquapulse-backend",
+  "name": "aquaflow-backend",
   "version": "1.0.0",
-  "description": "Local backend for AquaPulse hydration tracker",
+  "description": "Local backend for AquaFlow hydration tracker",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

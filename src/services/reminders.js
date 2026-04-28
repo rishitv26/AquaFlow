@@ -1,5 +1,5 @@
 /**
- * Reminder System for AquaPulse
+ * Reminder System for AquaFlow
  * Handles browser notifications and reminder scheduling
  */
 
@@ -80,7 +80,7 @@ function showNotifi() {
         body: 'Drink some water to stay healthy and focused',
         icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%2300d4ff"/><path d="M50 20 L55 40 L55 70 L45 70 L45 40 Z" fill="%23ffffff" opacity="0.8"/></svg>',
         badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="%2300d4ff"/></svg>',
-        tag: 'aquapulse-reminder',
+        tag: 'aquaflow-reminder',
         requireInteraction: false,
       })
 
@@ -125,7 +125,7 @@ function showNotifi() {
     }
 
     // Dispatch custom event for in-app notification
-    window.dispatchEvent(new CustomEvent('aquapulse-reminder', {
+    window.dispatchEvent(new CustomEvent('aquaflow-reminder', {
       detail: { title: '💧 Time to Hydrate!', message: 'Drink some water to stay healthy and focused' }
     }))
     console.log('📢 [Reminders] Custom event dispatched for in-app notification')

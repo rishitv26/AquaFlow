@@ -103,7 +103,7 @@ export default function Home() {
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center gap-2">
               <Droplets className="w-7 h-7 text-cyan-400" />
-              AquaPulse
+              AquaFlow
             </h1>
             <p className="text-slate-400 text-sm mt-1">Stay hydrated, stay healthy</p>
           </div>
@@ -174,7 +174,7 @@ export default function Home() {
         <div className="mb-8">
           <BluetoothStatus
             isConnected={isBottleConnected}
-            bottleName="AquaPulse Pro"
+            bottleName="Hydro Core"
             batteryLevel={bottleBattery}
             onConnect={() => setIsBottleConnected(true)}
             onDisconnect={() => setIsBottleConnected(false)}

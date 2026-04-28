@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // Database file location
-const dbPath = path.join(__dirname, 'aquapulse.db');
+const dbPath = path.join(__dirname, 'aquaflow.db');
 
 // Create or open database
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -83,7 +83,7 @@ function seedDatabase() {
       const { v4: uuidv4 } = require('uuid');
       
       const userId = uuidv4();
-      const userEmail = 'user@aquapulse.local';
+      const userEmail = 'user@aquaflow.local';
       const settingsId = uuidv4();
 
       // Insert user

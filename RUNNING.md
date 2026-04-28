@@ -1,4 +1,4 @@
-# 🚀 AquaPulse Complete Setup - Ready to Run!
+# 🚀 AquaFlow Complete Setup - Ready to Run!
 
 ## ✅ What's Been Set Up
 
@@ -9,7 +9,7 @@ DECA Hydrode app/
 ├── 📁 server/               (Express + SQLite backend on port 3002)
 │   ├── server.js
 │   ├── db.js
-│   ├── aquapulse.db
+│   ├── aquaflow.db
 │   └── package.json         ✓ Dependencies installed
 │
 ├── 📁 src/                  (Vite + React frontend on port 3000)
@@ -43,7 +43,7 @@ npm start
 
 **Expected output:**
 ```
-✓ AquaPulse backend running on http://localhost:3002
+✓ AquaFlow backend running on http://localhost:3002
 ✓ API endpoints available at http://localhost:3002/api
 ✓ Connected to SQLite database
 ✓ Sample user created
@@ -136,7 +136,7 @@ Configured in:
 
 ## 💾 Database
 
-**SQLite file:** `server/aquapulse.db`
+**SQLite file:** `server/aquaflow.db`
 
 **Tables:**
 - `users` - User profiles
@@ -156,7 +156,7 @@ Axios Client (src/api/client.js)
     ↓ (HTTP GET/POST)
 Express Server (localhost:3002)
     ↓ (SQL queries)
-SQLite Database (aquapulse.db)
+SQLite Database (aquaflow.db)
 ```
 
 ---
@@ -289,7 +289,7 @@ DECA Hydrode app/
 │    │   ├── server.js
 │    │   ├── db.js
 │    │   ├── package.json
-│    │   ├── aquapulse.db
+│    │   ├── aquaflow.db
 │    │   └── node_modules/
 │
 ├─── Data
@@ -337,9 +337,9 @@ DECA Hydrode app/
 | **Start backend** | `cd server && npm start` |
 | **Build frontend** | `npm run build` |
 | **Check API** | Visit `http://localhost:3002/health` |
-| **View database** | `sqlite3 server/aquapulse.db` |
-| **Reset database** | `rm server/aquapulse.db` (recreates on restart) |
+| **View database** | `sqlite3 server/aquaflow.db` |
+| **Reset database** | `rm server/aquaflow.db` (recreates on restart) |
 
 ---
 
-**Everything is ready! Start both servers and enjoy your local AquaPulse app! 🌊💧**
+**Everything is ready! Start both servers and enjoy your local AquaFlow app! 🌊💧**

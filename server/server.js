@@ -41,7 +41,7 @@ function allAsync(sql, params = []) {
 }
 
 // Default user (for local development)
-const DEFAULT_USER_EMAIL = 'user@aquapulse.local';
+const DEFAULT_USER_EMAIL = 'user@aquaflow.local';
 
 // ==================== AUTHENTICATION ====================
 // GET /api/me - Get current user
@@ -338,12 +338,12 @@ app.get('/api/users', async (req, res) => {
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'AquaPulse backend is running' });
+  res.json({ status: 'ok', message: 'AquaFlow backend is running' });
 });
 
 // Start server with error handling
 const server = app.listen(PORT, () => {
-  console.log(`\n✓ AquaPulse backend running on http://localhost:${PORT}`);
+  console.log(`\n✓ AquaFlow backend running on http://localhost:${PORT}`);
   console.log(`✓ API endpoints available at http://localhost:${PORT}/api\n`);
 });
 

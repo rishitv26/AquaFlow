@@ -1,8 +1,8 @@
-# AquaPulse Local Setup Guide
+# AquaFlow Local Setup Guide
 
 ## 🎉 Migration Complete
 
-Your AquaPulse hydration tracking app has been successfully migrated from Base44 to a **fully local setup** with Express backend and SQLite database!
+Your AquaFlow hydration tracking app has been successfully migrated from Base44 to a **fully local setup** with Express backend and SQLite database!
 
 ---
 
@@ -14,7 +14,7 @@ DECA Hydrode app/
 │   ├── server.js             # Express server (port 3001)
 │   ├── db.js                 # SQLite database setup
 │   ├── package.json
-│   ├── aquapulse.db          # (auto-created) SQLite database file
+	│   ├── aquaflow.db          # (auto-created) SQLite database file
 │   └── node_modules/         # (auto-created) Backend dependencies
 │
 ├── api/
@@ -52,7 +52,7 @@ npm start
 
 **Expected output:**
 ```
-✓ AquaPulse backend running on http://localhost:3001
+✓ AquaFlow backend running on http://localhost:3001
 ✓ API endpoints available at http://localhost:3001/api
 ✓ Connected to SQLite database
 ```
@@ -74,7 +74,7 @@ Your app will run on `http://localhost:3000` (or your configured port)
 The app now communicates with your local backend:
 - **Frontend** → `http://localhost:3000`
 - **Backend API** → `http://localhost:3001/api`
-- **Database** → `server/aquapulse.db` (SQLite file)
+- **Database** → `server/aquaflow.db` (SQLite file)
 
 ---
 
@@ -105,7 +105,7 @@ Your Express backend provides these REST API endpoints:
 
 ### **Database**
 
-SQLite database (`aquapulse.db`) has three tables:
+SQLite database (`aquaflow.db`) has three tables:
 
 **Users**
 ```sql
@@ -232,17 +232,17 @@ Edit `server/server.js` line with `const PORT = 3001;` to use a different port (
 
 ### **Sample Data**
 When the backend starts for the first time, it automatically creates:
-- 1 test user (`user@aquapulse.local`)
+- 1 test user (`user@aquaflow.local`)
 - 6 sample hydration logs for today
 - Default user settings (2500ml daily goal, 70kg weight, etc.)
 
 You can modify/delete this data through the app UI.
 
 ### **Database Persistence**
-All data persists in `server/aquapulse.db`. To reset:
+All data persists in `server/aquaflow.db`. To reset:
 ```bash
 # Delete the database file, it will recreate on next server start
-rm server/aquapulse.db
+rm server/aquaflow.db
 ```
 
 ### **CORS Configuration**
@@ -252,7 +252,7 @@ Backend allows requests from any origin (CORS enabled). For production, update `
 
 ## 🔐 Local Development Notes
 
-- No authentication required (default user: `user@aquapulse.local`)
+- No authentication required (default user: `user@aquaflow.local`)
 - All data stored locally on your machine
 - Works completely offline (once server is running)
 - No internet connection needed
@@ -277,4 +277,4 @@ Your app is now:
 - **Scalable** - Can deploy backend separately if needed
 - **Maintainable** - Clear separation of concerns
 
-Enjoy your local AquaPulse app! 🌊💧
+Enjoy your local AquaFlow app! 🌊💧
